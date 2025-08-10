@@ -1,4 +1,5 @@
 import tarefaRepository from "../repository/TarefaRepository.js";
+import usuarioService from "./UsuarioService.js";
 import RecursoNaoEncontradoError from "../utils/errors/RecursoNaoEncontradoError.js";
 import ValidarErros from "../utils/errors/ValidarError.js";
 import { uuidValidacao } from "../utils/Uuidvalidacao.js";
@@ -9,6 +10,9 @@ const tarefaService = {
         if(tarefaDto.titulo.length < 3 ){
             throw new ValidarErros(`campo precisa ter 3 caracteres`)
         }
+
+         await usuarioService.listarUmUsuario(tarefaDto.usuarioId)
+
         const novaTarefa = await tarefaRepository.create(tarefaDto)
         return novaTarefa
     },

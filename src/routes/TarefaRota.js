@@ -6,10 +6,10 @@ import { patchValidarTarefa } from "../utils/validation/TarefaPatchValid.js"
 
 const router = express.Router()
 
-router.post("/tarefa", validarTarefa ,tarefaController.criarTarefa)
-router.get("/tarefa", tarefaController.listarTarefas)
-router.get("/tarefa/:id", tarefaController.listarUmaTarefa)
-router.patch("/tarefa/:id", patchValidarTarefa ,tarefaController.atualizarUmaTarefa)
-router.delete("/tarefa/:id", tarefaController.deletarTarefa)
+router.post("/usuarios/:usuarioId/tarefas", validarTarefa ,tarefaController.criarTarefa)
+router.get("/tarefas", tarefaController.listarTarefas)
+router.get("/tarefas/:id", tarefaController.listarUmaTarefa)
+router.patch("/tarefas/:id", patchValidarTarefa ,tarefaController.atualizarUmaTarefa)
+router.delete("/tarefas/:id", tarefaController.deletarTarefa)
 
 export default router

@@ -7,7 +7,10 @@ const tarefaController = {
     async criarTarefa(req, res) {
         try{
 
+            let {usuarioId} = req.params
             let corpo = req.body
+
+            corpo.usuarioId = usuarioId
 
             const resposta = await tarefaService.criarTarefa(corpo)
             res.status(201).json(resposta)
@@ -16,6 +19,11 @@ const tarefaController = {
              if (error instanceof ValidarErros) {                
                 return res.status(error.statusCode).json(error);
             }
+
+             if (error instanceof RecursoNaoEncontradoError) {
+                return res.status(error.statusCode).json(error);
+            } 
+
             console.log(error)
             return res.status(500).json({error: "Erro ao criar Tarefa"})
         }
