@@ -12,7 +12,13 @@ const TarefaPatchValid = Joi.object({
         'string.base': "campo descricao precisa se uma string",
         'string.empty': "descricao não pode está em branco",
         'string.min': "titulo deve ter no minimo {#limit} caracteres"    
-    })
+    }),
+    status: Joi.string().valid("PENDENTE", "CANCELADA", "ATRASADA", "CONCLUIDA").messages({
+            'string.base': 'O campo STATUS deve ser uma string.',   
+            'any.required': 'O campo "status" é obrigatório.',
+            'any.only': 'O status deve ser um dos seguintes: PENDENTE, CANCELADA, ATRASADA ou CONCLUIDA.',
+            
+        })
 
 })
 
