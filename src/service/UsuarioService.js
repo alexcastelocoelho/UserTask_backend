@@ -28,6 +28,20 @@ const usuarioService = {
         return usuario
     },
 
+
+    async listarTarefasDeUsuario(id) {        
+        if(!uuidValidacao(id)){
+            throw new ValidarErros("formato do id invalido ou longo demais")        
+        }        
+        
+        const usuario = await usuarioRepository.findByPkWithTarefas(id)
+        if(!usuario) {
+            throw new RecursoNaoEncontradoError("Usuario não localizado")
+        }
+        return usuario
+    },
+
+
     async atualizarUsuario(UsuarioId, usuarioDtoAtualizar) {
         await this.listarUmUsuario(UsuarioId)
         

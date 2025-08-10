@@ -55,6 +55,29 @@ const usuarioController = {
         }
     },
 
+    async listarTarefasDeUsuario(req, res) {
+        try {
+            const usuario = await usuarioService.listarTarefasDeUsuario(req.params.id);            
+            return res.status(200).json(usuario);
+
+        } catch (error){
+            if (error instanceof ValidarErros) {
+                return res.status(error.statusCode).json(error);
+            }  
+            
+            if (error instanceof RecursoNaoEncontradoError) {
+                return res.status(error.statusCode).json(error);
+            } 
+        
+            console.error('Erro ao listar tarefas de um usuario:', error);
+            return res.status(500).json({ error: 'erro ao listar tarefas de um usuario' });
+        
+        }
+    }
+    
+    
+    ,
+
     async atualizarUmUsuario(req, res){
 
         try {

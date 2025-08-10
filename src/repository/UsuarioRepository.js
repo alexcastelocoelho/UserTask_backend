@@ -9,19 +9,24 @@ const usuarioRepository = {
         return resposta
 
     },
-    
 
      async findAll() {
         const resposta = await usuarioModel.findAll()
         return resposta
     },
-
-    
+        
     async findByPk(id) {
         const resposta = await usuarioModel.findByPk(id)
         return resposta
 
     },
+
+    async findByPkWithTarefas(id) {
+        const resposta = await usuarioModel.findByPk(id,{include:{model: tarefa, as: "tarefas"}})
+        return resposta
+
+    },
+
 
     async update(usuarioId, usuarioDtoAtualizar ) {
          await usuarioModel.update(usuarioDtoAtualizar, {
