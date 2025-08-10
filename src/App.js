@@ -1,3 +1,4 @@
+ import "../src/model/Index.js"
 import express from "express"
 
 import indexRouter from "../src/routes/Index.js"
