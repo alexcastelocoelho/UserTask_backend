@@ -18,14 +18,8 @@ const TarefaPostValid = Joi.object({
     status: Joi.string().valid("PENDENTE", "CANCELADA", "ATRASADA", "CONCLUIDA").required().messages({
         'string.base': 'O campo STATUS deve ser uma string.',   
         'any.required': 'O campo "status" é obrigatório.',
-        'any.only': 'O status deve ser um dos seguintes: PENDENTE, CANCELADA, ATRASADA ou CONCLUIDA.',
-        
+        'any.only': 'O status deve ser um dos seguintes: PENDENTE, CANCELADA, ATRASADA ou CONCLUIDA.',                
     })
-//     ,
-//     usuarioId: Joi.string().guid({ version: ['uuidv4'] }).required().messages({
-//   'any.required': 'Campo obrigatório',
-//   'string.empty': 'Não pode estar vazio'
-// })
 
 
 })
