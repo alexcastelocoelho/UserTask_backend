@@ -4,7 +4,7 @@ import ValidarErros from "../utils/errors/ValidarError.js";
 
 const tarefaController = {
 
-    async criarTarefa(req, res) {
+    async criarTarefa(req, res, next) {
         try{
 
             let {usuarioId} = req.params
@@ -16,91 +16,53 @@ const tarefaController = {
             res.status(201).json(resposta)
 
         } catch (error) {
-             if (error instanceof ValidarErros) {                
-                return res.status(error.statusCode).json(error);
-            }
-
-             if (error instanceof RecursoNaoEncontradoError) {
-                return res.status(error.statusCode).json(error);
-            } 
-
-            console.log(error)
-            return res.status(500).json({error: "Erro ao criar Tarefa"})
+            next(error); 
+           
         }
     },
 
 
-    async listarTarefas(req, res) {
+    async listarTarefas(req, res, next) {
 
         try {
             const tarefas = await tarefaService.listarTarefas();
             return res.status(200).json(tarefas);
 
         } catch (error){
-            console.error('Erro ao listar tarefas:', error);
-            return res.status(500).json({ error: 'Erro ao listar tarefas' });
+            next(error); 
         }
     },
 
-     async listarUmaTarefa(req, res) {
+     async listarUmaTarefa(req, res, next) {
 
         try {
             const tarefa = await tarefaService.listarUmaTarefa(req.params.id);            
             return res.status(200).json(tarefa);
 
         } catch (error){
-            if (error instanceof ValidarErros) {
-                return res.status(error.statusCode).json(error);
-            }  
-            
-            if (error instanceof RecursoNaoEncontradoError) {
-                return res.status(error.statusCode).json(error);
-            } 
-        
-            console.error('Erro ao listar uma tarefa:', error);
-            return res.status(500).json({ error: 'erro ao listar uma tarefa' });
-        
+           next(error);         
         }
     },
 
-    async atualizarUmaTarefa(req, res){
+    async atualizarUmaTarefa(req, res, next){
 
         try {
             await tarefaService.atualizarUmaTarefa(req.params.id, req.body)
             res.status(204).send()
         } catch (error) {
-
-             if (error instanceof ValidarErros) {
-                return res.status(error.statusCode).json(error);
-            }  
-            
-            if (error instanceof RecursoNaoEncontradoError) {
-                return res.status(error.statusCode).json(error);
-            } 
-
-            console.error('Erro atualizar uma tarefa:', error);
-            return res.status(500).json({ error: 'Erro ao atualizar tarefa' });
+            next(error);            
         }
 
     },
 
-    async deletarTarefa(req, res) {
+    async deletarTarefa(req, res, next) {
         try {
             await tarefaService.deletarTarefar(req.params.id)
             return res.status(204).send()
 
         } catch (error) {
-             if (error instanceof ValidarErros) {
-                return res.status(error.statusCode).json(error);
-            } 
-            
-             if (error instanceof RecursoNaoEncontradoError) {
-                return res.status(error.statusCode).json(error);
-            } 
-
-            console.error('Erro ao deletar uma tarefa:', error);
-            return res.status(500).json({ error: 'Erro ao deletar uma tarefa' });
-            
+            next(error); 
+         
         }
     }
 
